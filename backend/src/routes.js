@@ -19,6 +19,6 @@ routes.post('/spots', upload.single('thumbnail'), SpotController.store ) // uplo
 // Rotas do Dashboard
 routes.get('/dashboard', DashboardController.show )
 
-routes.post('/spots/:id/bookings')
+routes.post('/spots/:spot_id/bookings', BookingController.store)
 
 module.exports = routes
