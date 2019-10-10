@@ -9,7 +9,7 @@
 // update - alterar uma sessão
 // destroy - excluir uma sessão
 
-const User = require('../models/User') // Importa o Schema que será utilizado, para cadastro de usuário.
+const UserModel = require('../models/User') // Importa o Schema que será utilizado, para cadastro de usuário.
 
 module.exports = {
 	async store(req, res){
@@ -17,14 +17,14 @@ module.exports = {
 
 		// findOne - Função padrão para buscar o registro dentro de algo.
 		// {email: email} - poderia ser escrito assim, porém pelo campo ter o mesmo nome da variavel pode ser passado da forma reduzida {email}
-		let user = await User.findOne({email})
+		let user = await UserModel.findOne( { email } )
 
 		// Caso usuário não exista, chama a modelo de criação.
-		if(!user){
-			const user = await User.create({ email })
+		if ( !user ){
+			user = await UserModel.create( { email } )
 		}
 
-		return res.json({user})
+		return res.json(user)
 	}
 
 }

@@ -1,6 +1,8 @@
 const express = require('express') // Importa Express
 const mongoose = require('mongoose') // Importa Express
+const cors = require('cors') // Importa cors para que seja possível o FrontEnd acessar a Api.
 const routes = require('./routes') // Importa o documento de Rotas
+
 
 const app = express()
 
@@ -9,10 +11,9 @@ mongoose.connect('mongodb+srv://omnistack:omnistack@cluster0-0k2bb.mongodb.net/s
 	useUnifiedTopology: true
 })
 
+app.use(cors())
 app.use(express.json()) // Determina que o express entenderá formato Json para envio de POST.
-
 app.use(routes) // Determina que utiliza o sistema de rotas.
-
 app.listen(3333) // Porta que o servidor será aberto.
 
 // Métodos mais utilizados no app.
