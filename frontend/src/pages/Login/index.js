@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+// useState - É usado para criar estados, digamos variaveis em memória de tempo de execução.
+import React, { useState } from 'react' // Importa React.
 import api from '../../services/api' // Importa a API com Axios.
 
 // <> - Cria uma tag vazia, tipo uma div, porém é criado assim apenas pq o retorno do componente react deve estar aglutinado.
-export default function Login( { history } ){ // history - É um objeto para auxiliar na mudança de página.
+export default function Login( { history } ){ // history - É um objeto para auxiliar na mudança de página, contêm o histórico de páginas.
 
 	// Cria a variavel email e cria a função setEmail para jogar o valor pra variavel.
 	const [email, setEmail] = useState('')
@@ -15,7 +16,7 @@ export default function Login( { history } ){ // history - É um objeto para aux
 		// Chama a api a rotina de sessions enviando o email por Json.
 		const response = await api.post('/sessions',{ email	})
 
-		// Busca apenas o ID de dentro da responso, pois dentro de Data tem vários valores do User.
+		// Busca apenas o ID de dentro da response, pois dentro de Data tem vários valores do User.
 		const { _id }   = response.data
 
 		// storage é como se fosse o banco de dados do navegador, valores em memória.
@@ -33,6 +34,7 @@ export default function Login( { history } ){ // history - É um objeto para aux
 		</p>
 		<form onSubmit={handleSubmit}>
 			<label htmlFor="email">E-MAIL *</label>
+
 			<input
 				type="email"
 				id="email"
