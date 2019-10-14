@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom' // É possível criar botôes para mudança de página.
 import api from '../../services/api'
+
+import './styles.css'
 
 export default function Dashboard(){
 
@@ -31,12 +34,17 @@ export default function Dashboard(){
 			<ul className="spot-list">
 				{spots.map(spot =>(
 					<li key={spot._id}>
-						<header></header>
+						<header style={{ backgroundImage: `url(${spot.thumbnail_url})` }}></header>
 						<strong>{spot.company}</strong>
-						<span>{spot.price}</span>
+						<span>{spot.price ? `R$${spot.price}/dia` : 'GRATUITO' }</span>
 					</li>
 				))}
 			</ul>
+
+
+			<Link to="/new">
+				<button className="btn">Cadastrar Novo Spot</button>
+			</Link>
 
 		</>
 	)
