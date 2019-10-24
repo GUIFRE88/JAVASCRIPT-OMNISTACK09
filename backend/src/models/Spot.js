@@ -25,7 +25,7 @@ const SpotSchema = new mongoose.Schema({
 
 // Cria apenas um campo virtual que não terá em base.
 SpotSchema.virtual('thumbnail_url').get(function(){
-	return `http://localhost:3333/files/${this.thumbnail}`
+	return `http://192.168.0.129:3333/files/${this.thumbnail}`
 })
 
 module.exports = mongoose.model('Spot', SpotSchema) // Exporta a Schema para utilizar.

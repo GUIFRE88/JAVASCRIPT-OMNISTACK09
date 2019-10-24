@@ -1,20 +1,37 @@
-import React, { useState } from 'react'
-import { View, KeyboardAvoidingView, Image, Text, Platform, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, AsyncStorage, KeyboardAvoidingView, Image, Text, Platform, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 
 import api from '../services/api'
 
 import logo from '../assets/logo.png'
 
-export default function Login(){
+export default function Login( { navigation } ){
 
 	const [email, setEmail] = useState('') // Cria estado para buscar o valor digitado em tela.
 	const [techs, setTechs] = useState('') // Cria estado para buscar o valor digitado em tela.
 
-	async function handleSubmit(){
-		// email, tech
+	// Faz com que permaneça na rota chamada.
+	useEffect( ()=> {
+		AsyncStorage.getItem('user').then( user =>{
+			if(user){ // Caso usuário exista permanece na rota List
+				navigation.navigate('List')
+			}
+		}) // Indica que usuário está logado, pois existe a propriedade user.
+	} , [] )
 
-		console.log(email)
-		console.log(techs)
+
+	async function handleSubmit(){
+		// Busca usuário na API, pelo email digitado.
+		const response = await api.post('/sessions',{
+			email
+		})
+
+		const { _id } = response.data // Busca apenas o código do usuário.
+
+		await AsyncStorage.setItem('user', _id)
+		await AsyncStorage.setItem('techs', techs)
+
+		navigation.navigate('List')
 	}
 
 	return (
